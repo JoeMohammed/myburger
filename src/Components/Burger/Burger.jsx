@@ -1,4 +1,5 @@
 import React from 'react';
+// import {WithRouter} from 'react-router-dom'
 
 import classes from './Burger.module.css';
 import BurgerIngredient from './BurgerIngredient/BurgerIngredient';
@@ -6,6 +7,8 @@ import BurgerIngredient from './BurgerIngredient/BurgerIngredient';
 const Burger = (props) => {
     let transformedIngredients = Object.keys( props.ingredients )
         .map( igKey => {
+            // console.log([...Array( props.ingredients[igKey] )]);
+            // console.log(igKey)
             return [...Array( props.ingredients[igKey] )].map( ( _, i ) => {
                 return <BurgerIngredient key={igKey + i} type={igKey} />;
             } );
@@ -19,7 +22,7 @@ const Burger = (props) => {
     return ( 
         <div className={classes.Burger}>
             <BurgerIngredient type="bread-top" />
-            {transformedIngredients}
+                {transformedIngredients}
             <BurgerIngredient type="bread-bottom" />
         </div>
     );
