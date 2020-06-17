@@ -3,9 +3,28 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import {BrowserRouter } from 'react-router-dom'
+import { Provider } from 'react-redux';
+import { createStore, applyMiddleware, compose, combineReducers } from 'redux';
+import thunk from 'redux-thunk';
+import BurgerBuilderReducer from './store/reducers/BurgerBuilder';
+import orderReuser from './store/reducers/orders';
+import authReducer from './store/reducers/auth';
 import * as serviceWorker from './serviceWorker';
 
-const app = <BrowserRouter > <App /> </BrowserRouter>;
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+const rootReducer = combineReducers({
+  burgerBuilder: BurgerBuilderReducer,
+  order:orderReuser,
+  auth: authReducer
+});
+
+
+const store = createStore(rootReducer, composeEnhancers(
+  applyMiddleware(thunk)
+));
+ 
+const app = <Provider store={store}> <BrowserRouter > <App /> </BrowserRouter> </Provider>;
 
 ReactDOM.render(
   <React.StrictMode>
